@@ -3,6 +3,7 @@
   <meta charset="UTF-8">
   <style>
     body { margin: 0; }
+	a { color: #ffffff; }
   </style>
   <script src="three/three.min.js"></script>
   <script src="three/TrackballControls.js"></script>
@@ -69,6 +70,22 @@ rawFile.onreadystatechange = function ()
 }
 rawFile.send(null);
 
+var names;
+rawFile = new XMLHttpRequest();
+rawFile.open("GET", "galaxyname.txt", false);
+rawFile.onreadystatechange = function ()
+{
+	if(rawFile.readyState === 4)
+	{
+		if(rawFile.status === 200 || rawFile.status == 0)
+		{
+			allText = rawFile.responseText;
+			names = allText.split("\n");
+		}
+	}
+}
+rawFile.send(null);
+
 dotGeometry.colors = colors;
 
 var size = 0.032;
@@ -102,6 +119,13 @@ function onWindowResize() {
 
 }
 
+var text = document.createElement('div');
+text.style.position = 'absolute';
+text.style.color = '#fff';
+text.style.top = 00 + 'px';
+text.style.left = 00 + 'px';
+document.body.appendChild(text);
+
 var selectedObject = -1;
 
 function onDocumentMouseMove( event ) {
@@ -115,7 +139,7 @@ function onDocumentMouseMove( event ) {
 
 	} else if ( selectedObject == 0) {
 	
-		dots.geometry.colors[selectedObject] = new THREE.Color('#f0f');
+		dots.geometry.colors[0] = new THREE.Color('#f0f');
 		dots.geometry.colorsNeedUpdate = true;
 		selectedObject = -1;
 	
@@ -127,7 +151,19 @@ function onDocumentMouseMove( event ) {
 		dots.geometry.colors[idx] = new THREE.Color('#69f');
 		dots.geometry.colorsNeedUpdate = true;
 		selectedObject = idx;
-		console.log(idx);
+		if (idx > 0) {
+			var name = names[idx-1];
+			text.innerHTML = "<h1>"+name+"</h1>";
+			firstname = name.split(",")[0];
+			text.innerHTML += "<h1><a href='http://cdsportal.u-strasbg.fr/?target="+firstname+"' target='_blank'>CDS</a></h1>";
+			text.innerHTML += "<h1><a href='http://simbad.u-strasbg.fr/simbad/sim-id?Ident="+firstname+"' target='_blank'>Simbad</a></h1>";
+			text.innerHTML += "<h1><a href='https://aladin.u-strasbg.fr/AladinLite/?target="+firstname+"' target='_blank'>Aladin</a></h1>";
+		}
+		else {
+			text.innerHTML = "<h1>Milky Way</h1>";
+			text.innerHTML += "<h1><a href='https://solarsystem.nasa.gov/resources/285/the-milky-way-galaxy/' target='_blank'>NASA</a></h1>";
+			text.innerHTML += "<h1><a href='https://en.wikipedia.org/wiki/Milky_Way' target='_blank'>Wikipedia</a></h1>";
+		}
 	}
 }
 
