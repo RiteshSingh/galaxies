@@ -220,7 +220,7 @@ UGC 00608
 ESO 351- G 028
 UGC 00614
 NGC 0337
-Sculptor Dwarf Elliptical
+PGC 3589, Sculptor Dwarf Elliptical
 IC 0066
 NGC 0338
 ESO 002- G 012
