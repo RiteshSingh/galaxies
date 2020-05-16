@@ -32,10 +32,10 @@ document.body.appendChild( renderer.domElement );
 
 var colors = [];
 
-//Add Milky Way with a special pink color
+//Add Milky Way with a special magenta color
 var dotGeometry = new THREE.Geometry();
 dotGeometry.vertices.push(new THREE.Vector3( 0, 0, 0 ));
-colors.push(new THREE.Color('#f9f'));
+colors.push(new THREE.Color('#f0f'));
 
 var rawFile = new XMLHttpRequest();
 rawFile.open("GET", "galaxydata.txt", false);
@@ -115,7 +115,7 @@ function onDocumentMouseMove( event ) {
 
 	} else if ( selectedObject == 0) {
 	
-		dots.geometry.colors[selectedObject] = new THREE.Color('#f9f');
+		dots.geometry.colors[selectedObject] = new THREE.Color('#f0f');
 		dots.geometry.colorsNeedUpdate = true;
 		selectedObject = -1;
 	
