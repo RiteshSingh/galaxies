@@ -2,8 +2,8 @@
 <head>
   <meta charset="UTF-8">
   <style>
-    body { margin: 0; }
-	a { color: #ffffff; }
+    body { margin: 0; }	
+	a { color: #fff; }
   </style>
   <script src="three/three.min.js"></script>
   <script src="three/TrackballControls.js"></script>
@@ -108,7 +108,9 @@ var render = function () {
 render();
 
 window.addEventListener( 'resize', onWindowResize, false );
-window.addEventListener( "mousemove", onDocumentMouseMove, false );
+window.addEventListener( 'mousemove', onDocumentMouseMove, false );
+window.addEventListener( 'click', onDocumentMouseClick, false );
+window.addEventListener( 'contextmenu', onDocumentMouseRightClick, false );
 
 function onWindowResize() {
 
@@ -125,24 +127,48 @@ text.style.color = '#fff';
 text.style.top = 00 + 'px';
 text.style.left = 00 + 'px';
 document.body.appendChild(text);
+text.innerHTML = "You are looking at 4673 galaxies around Milky Way from a distance of 200 Mpc (652 million light-years).<br>";
+text.innerHTML += "Each galaxy is a square dot of side 32 Kpc (104370 light-years) , the diameter of Milky Way.<br><br>";
+text.innerHTML += "Point at a galaxy: <b>Name, CDS, Simbad, Aladin</b><br>";
+text.innerHTML += "Mouse scroll: <b>Move in/out</b>.<br>Left click and drag: <b>Rotate</b><br>Right click and drag: <b>Pan</b><br>";
+text.innerHTML += "Left click on a galaxy: <b>Center it and color it <span style='color:#ff0;'>yellow</span></b><br>";
+text.innerHTML += "Right click on a galaxy: <b>Color it <span style='color:#0f0;'>green</span></b><br>";
+text.innerHTML += "Point at a colored galaxy (except last colored): <b>Turn it back to white</b><br>";
+text.innerHTML += "Milky Way: <b>Always <span style='color:#f0f;'>magenta</span></b>";
+
 
 var selectedObject = -1;
+var clickedObject = -2;
+var rightclickedObject = -3;
 
 function onDocumentMouseMove( event ) {
 
 	event.preventDefault();
-	if ( selectedObject > 0 ) {
+	if ( selectedObject == 0 ) {
 
-		dots.geometry.colors[selectedObject] = new THREE.Color('#fff');
-		dots.geometry.colorsNeedUpdate = true;
-		selectedObject = -1;
-
-	} else if ( selectedObject == 0) {
-	
 		dots.geometry.colors[0] = new THREE.Color('#f0f');
 		dots.geometry.colorsNeedUpdate = true;
 		selectedObject = -1;
 	
+	}
+	else if ( selectedObject == clickedObject ) {
+
+		dots.geometry.colors[selectedObject] = new THREE.Color('#ff0');
+		dots.geometry.colorsNeedUpdate = true;
+		selectedObject = -1;
+
+	} else if ( selectedObject == rightclickedObject ) {
+
+		dots.geometry.colors[selectedObject] = new THREE.Color('#0f0');
+		dots.geometry.colorsNeedUpdate = true;
+		selectedObject = -1;
+
+	} else if ( selectedObject > 0 ) {
+	
+		dots.geometry.colors[selectedObject] = new THREE.Color('#fff');
+		dots.geometry.colorsNeedUpdate = true;
+		selectedObject = -1;
+		
 	}
 
 	var intersects = getIntersects( event.layerX, event.layerY );
@@ -164,6 +190,35 @@ function onDocumentMouseMove( event ) {
 			text.innerHTML += "<h1><a href='https://solarsystem.nasa.gov/resources/285/the-milky-way-galaxy/' target='_blank'>NASA</a></h1>";
 			text.innerHTML += "<h1><a href='https://en.wikipedia.org/wiki/Milky_Way' target='_blank'>Wikipedia</a></h1>";
 		}
+	}
+}
+
+function onDocumentMouseClick( event ) {
+
+	event.preventDefault();
+
+	var intersects = getIntersects( event.layerX, event.layerY );
+	if ( intersects.length > 0 ) {
+		controls.target = intersects[0].point;
+		var idx = intersects[0].index;
+		if (idx) dots.geometry.colors[idx] = new THREE.Color('#ff0');
+		else dots.geometry.colors[idx] = new THREE.Color('#f0f');
+		dots.geometry.colorsNeedUpdate = true;
+		clickedObject = idx;
+	}
+}
+
+function onDocumentMouseRightClick( event ) {
+
+	event.preventDefault();
+
+	var intersects = getIntersects( event.layerX, event.layerY );
+	if ( intersects.length > 0 ) {
+		var idx = intersects[0].index;
+		if (idx) dots.geometry.colors[idx] = new THREE.Color('#0f0');
+		else dots.geometry.colors[idx] = new THREE.Color('#f0f');
+		dots.geometry.colorsNeedUpdate = true;
+		rightclickedObject = idx;
 	}
 }
 
