@@ -124,22 +124,92 @@ function onWindowResize() {
 var text = document.createElement('div');
 text.style.position = 'absolute';
 text.style.color = '#fff';
-text.style.top = 00 + 'px';
-text.style.left = 00 + 'px';
+text.style.top = 0 + 'px';
+text.style.left = 0 + 'px';
 document.body.appendChild(text);
 text.innerHTML = "You are looking at 4673 galaxies around Milky Way from a distance of 200 Mpc (652 million light-years)! The Milky Way plane is from top to bottom.<br>";
 text.innerHTML += "Each galaxy is a square dot of side 32 Kpc (104370 light-years), the diameter of Milky Way. Each galaxy contains 100 billion to 1 trillion stars!<br><br>";
 text.innerHTML += "Point at a galaxy: <b>Name, CDS, Simbad, Aladin</b><br>";
-text.innerHTML += "Mouse scroll: <b>Move to/from centered galaxy (default Milky Way)</b><br>Left click and drag: <b>Rotate</b><br>Right click and drag: <b>Pan</b><br>";
+text.innerHTML += "Mouse scroll or Pinch zoom: <b>Move to/from centered galaxy (default Milky Way)</b><br>Left click and drag: <b>Rotate</b><br>Right click and drag: <b>Pan</b><br>";
 text.innerHTML += "Left click on a galaxy: <b>Center it and color it <span style='color:#ff0;'>yellow</span></b><br>";
 text.innerHTML += "Right click on a galaxy: <b>Color it <span style='color:#0f0;'>green</span></b><br>";
 text.innerHTML += "Point at a colored galaxy (except last colored): <b>Turn it back to white</b><br>";
 text.innerHTML += "Milky Way: <b>Always <span style='color:#f0f;'>magenta</span></b>";
 
+var search = document.createElement('div');
+search.style.position = 'absolute';
+search.style.color = '#fff';
+search.style.bottom = 10 + 'px';
+search.style.left = 0 + 'px';
+document.body.appendChild(search);
+search.innerHTML = '<h1>Galaxy Search</h1>';
+search.innerHTML += '<input type="text" placeholder="Galaxy Name" id="srchkey">';
+search.innerHTML += '<button type="button" onclick="searchfunc();">Search</button>';
+search.innerHTML += '<span id="srchtxt"></span>';
 
 var selectedObject = -1;
 var clickedObject = -2;
 var rightclickedObject = -3;
+
+function searchfunc () {
+	var srchkey = document.getElementById("srchkey").value;
+	var srchtxt = document.getElementById("srchtxt");
+	var key = srchkey.replace(/[^A-Z0-9]/ig, "").toLowerCase();
+	if (key == 'milkyway') {
+		srchtxt.innerHTML = "Milky Way galaxy centered and colored <span style='color:#f0f;'>magenta</span>. Use mouse scroll or pinch zoom to move to/from Milky Way.";
+		controls.target = dots.geometry.vertices[0];
+	}
+	else {
+		var found = false;
+		for (var i = 0; i < 4672; i++) {
+			var name = names[i];
+			if (name.indexOf(',') > -1) {
+				var namearr = name.split(",");
+				for (var j = 0; j < namearr.length; j++) {
+					if (namearr[j].replace(/[^A-Z0-9]/ig, "").toLowerCase() ==  key) {
+						found = true;
+						break;
+					}
+				}
+				if (found) {
+					srchtxt.innerHTML = name + " galaxy centered and colored <span style='color:#ff0;'>yellow</span>. Use mouse scroll or pinch zoom to move to/from " + name;
+					controls.target = dots.geometry.vertices[i];
+					dots.geometry.colors[i] = new THREE.Color('#ff0');
+					dots.geometry.colorsNeedUpdate = true;
+					clickedObject = i;					
+					
+					text.innerHTML = "<h1>"+name+"</h1>";
+					var firstname = name.split(",")[0];
+					text.innerHTML += "<h1><a href='http://cdsportal.u-strasbg.fr/?target="+firstname+"' target='_blank'>CDS</a></h1>";
+					text.innerHTML += "<h1><a href='http://simbad.u-strasbg.fr/simbad/sim-id?Ident="+firstname+"' target='_blank'>Simbad</a></h1>";
+					text.innerHTML += "<h1><a href='https://aladin.u-strasbg.fr/AladinLite/?target="+firstname+"' target='_blank'>Aladin</a></h1>";
+					break;
+				}
+			} 
+			else {
+				if (name.replace(/[^A-Z0-9]/ig, "").toLowerCase() == key) {
+					srchtxt.innerHTML = name + " galaxy centered and colored <span style='color:#ff0;'>yellow</span>. Use mouse scroll or pinch zoom to move to/from " + name;
+					controls.target = dots.geometry.vertices[i];
+					dots.geometry.colors[i] = new THREE.Color('#ff0');
+					dots.geometry.colorsNeedUpdate = true;
+					clickedObject = i;					
+					
+					text.innerHTML = "<h1>"+name+"</h1>";
+					var firstname = name.split(",")[0];
+					text.innerHTML += "<h1><a href='http://cdsportal.u-strasbg.fr/?target="+firstname+"' target='_blank'>CDS</a></h1>";
+					text.innerHTML += "<h1><a href='http://simbad.u-strasbg.fr/simbad/sim-id?Ident="+firstname+"' target='_blank'>Simbad</a></h1>";
+					text.innerHTML += "<h1><a href='https://aladin.u-strasbg.fr/AladinLite/?target="+firstname+"' target='_blank'>Aladin</a></h1>";
+					
+					found = true;
+					break;
+				}
+			}
+		}
+		if (!found) {
+			srchtxt.innerHTML = srchkey+" not found. Yes, we know we need to improve our search 😊";
+		}
+	}
+}
 
 function onDocumentMouseMove( event ) {
 
@@ -178,9 +248,9 @@ function onDocumentMouseMove( event ) {
 		dots.geometry.colorsNeedUpdate = true;
 		selectedObject = idx;
 		if (idx > 0) {
-			var name = names[idx-1];
+			var name = names[idx];
 			text.innerHTML = "<h1>"+name+"</h1>";
-			firstname = name.split(",")[0];
+			var firstname = name.split(",")[0];
 			text.innerHTML += "<h1><a href='http://cdsportal.u-strasbg.fr/?target="+firstname+"' target='_blank'>CDS</a></h1>";
 			text.innerHTML += "<h1><a href='http://simbad.u-strasbg.fr/simbad/sim-id?Ident="+firstname+"' target='_blank'>Simbad</a></h1>";
 			text.innerHTML += "<h1><a href='https://aladin.u-strasbg.fr/AladinLite/?target="+firstname+"' target='_blank'>Aladin</a></h1>";
