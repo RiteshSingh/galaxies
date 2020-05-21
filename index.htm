@@ -145,8 +145,16 @@ document.body.appendChild(search);
 search.innerHTML = '<h1>Galaxy Search</h1>';
 search.innerHTML += '<h3><a href="https://github.com/RiteshSingh/galaxies/blob/master/galaxyname.txt" target="_blank">List of all 4673 galaxies</a></h3>';
 search.innerHTML += '<input type="text" placeholder="Galaxy Name" id="srchkey">';
-search.innerHTML += '<button type="button" onclick="searchfunc();">Search</button>';
+search.innerHTML += '<button type="button" onclick="searchfunc();" id="srchbtn">Search</button>';
 search.innerHTML += '<span id="srchtxt"></span>';
+
+document.getElementById("srchkey")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+        document.getElementById("srchbtn").click();
+    }
+});
 
 var selectedObject = -1;
 var clickedObject = -2;
