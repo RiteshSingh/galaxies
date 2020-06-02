@@ -10,3 +10,5 @@ Left click on a galaxy: <b>Center it and color it <span style='color:#ff0;'>yell
 Right click on a galaxy: <b>Color it <span style='color:#0f0;'>green</span></b><br>
 Point at a colored galaxy (except last colored): <b>Turn it back to white</b><br>
 Milky Way: <b>Always <span style='color:#f0f;'>magenta</span></b></p>
+
+### [Link to the Simulation](https://riteshsingh.github.io/galaxies/)
