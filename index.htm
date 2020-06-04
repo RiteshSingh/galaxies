@@ -166,6 +166,9 @@ function searchfunc () {
 	var key = srchkey.replace(/[^A-Z0-9]/ig, "").toLowerCase();
 	if (key == 'milkyway') {
 		srchtxt.innerHTML = "Milky Way galaxy centered and colored <span style='color:#f0f;'>magenta</span>. Use mouse scroll or pinch zoom to move to/from Milky Way.";
+		text.innerHTML = "<h1>Milky Way</h1>";
+		text.innerHTML += "<h1><a href='https://solarsystem.nasa.gov/resources/285/the-milky-way-galaxy/' target='_blank'>NASA</a></h1>";
+		text.innerHTML += "<h1><a href='https://en.wikipedia.org/wiki/Milky_Way' target='_blank'>Wikipedia</a></h1>";
 		controls.target = dots.geometry.vertices[0];
 	}
 	else {
