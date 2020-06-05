@@ -17,7 +17,7 @@ var scene = new THREE.Scene();
 
 // Create a basic perspective camera
 var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
-camera.position.x = 200;
+camera.position.x = 10;
 
 // Create a renderer with Antialiasing
 var renderer = new THREE.WebGLRenderer({antialias:true});
@@ -128,7 +128,7 @@ text.style.top = 0 + 'px';
 text.style.left = 0 + 'px';
 document.body.appendChild(text);
 text.innerHTML = "You are looking at 4673 galaxies around Milky Way from a distance of 200 Mpc (652 million light-years)! The Milky Way plane is from top to bottom, perpendicular to the screen.<br>";
-text.innerHTML += "Each galaxy is a square dot of side 32 Kpc (104370 light-years), the diameter of Milky Way. Each galaxy contains 100 billion to 1 trillion stars!<br><br>";
+text.innerHTML += "Each galaxy is a square of side 32 Kpc (104370 light-years), the diameter of Milky Way. Each galaxy contains 100 billion to 1 trillion stars!<br><br>";
 text.innerHTML += "Point at a galaxy: <b>Name, CDS, Simbad, Aladin, NED</b><br>";
 text.innerHTML += "Mouse scroll or Pinch zoom: <b>Move to/from centered galaxy (default Milky Way)</b><br>Left click and drag: <b>Rotate</b><br>Right click and drag: <b>Pan</b><br>";
 text.innerHTML += "Left click on a galaxy: <b>Center it and color it <span style='color:#ff0;'>yellow</span></b><br>";
