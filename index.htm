@@ -52,14 +52,9 @@ rawFile.onreadystatechange = function ()
 			for (var i = 0; i < 4672; i++) {
 				var parts = data[i].split("\t");
 
-				var D = parts[0];
-				var glon = parts[1]*3.1416/180;
-				var glat = parts[2]*3.1416/180;
-
-				var z = D*Math.sin(glat);
-				var xy = D*Math.cos(glat);
-				var x = xy*Math.cos(glon);
-				var y = xy*Math.sin(glon);
+				var x = parts[0];
+				var y = parts[1];
+				var z = parts[2];
 
 				dotGeometry.vertices.push(new THREE.Vector3( x, y, z ));
 
