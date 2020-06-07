@@ -150,7 +150,6 @@ centertext.innerHTML += "<h1>Distance: <span id='centerdist'>200</span> Mpc<h1>"
 function onDocumentMouseWheel( event ) {
 	var centerstring = document.getElementById("centerstring");
 	var centerdist = document.getElementById("centerdist");
-	centerstring.innerHTML = "Bharat";
 	var cameraloc = camera.position;
 	centerdist.innerHTML = cameraloc.distanceTo(new THREE.Vector3()).toFixed(2);
 }
