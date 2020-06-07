@@ -48,14 +48,24 @@ rawFile.onreadystatechange = function ()
 		{
 			var allText = rawFile.responseText;
 			var data = allText.split("\n");
+			
+			var printdata = "";
 
 			for (var i = 0; i < 4672; i++) {
 				var parts = data[i].split("\t");
+				
+				var D = parts[0];
+				var glon = parts[1]*3.1416/180;
+				var glat = parts[2]*3.1416/180;
 
-				var x = parts[0];
-				var y = parts[1];
-				var z = parts[2];
+				var z = D*Math.sin(glat);
+				var xy = D*Math.cos(glat);
+				var x = xy*Math.cos(glon);
+				var y = xy*Math.sin(glon);
+				
+				printdata += x+"\t"+y+"\t"+z+"\n";
 
+				//dotGeometry.vertices.push(new THREE.Vector3( parts[0], parts[1], parts[2] ));
 				dotGeometry.vertices.push(new THREE.Vector3( x, y, z ));
 
 				colors.push(new THREE.Color('#fff'));
@@ -106,6 +116,7 @@ window.addEventListener( 'resize', onWindowResize, false );
 window.addEventListener( 'mousemove', onDocumentMouseMove, false );
 window.addEventListener( 'click', onDocumentMouseClick, false );
 window.addEventListener( 'contextmenu', onDocumentMouseRightClick, false );
+window.addEventListener( 'wheel', onDocumentMouseWheel, true );
 
 function onWindowResize() {
 
@@ -131,6 +142,23 @@ text.innerHTML += "Right click on a galaxy: <b>Select and color it <span style='
 text.innerHTML += "Point at a colored galaxy (except last colored): <b>Turn it back to white</b><br>";
 text.innerHTML += "Milky Way: <b>Always <span style='color:#f0f;'>magenta</span></b>";
 
+var centertext = document.createElement('div');
+centertext.style.position = 'absolute';
+centertext.style.color = '#fff';
+centertext.style.bottom = 0 + 'px';
+centertext.style.right = 0 + 'px';
+document.body.appendChild(centertext);
+centertext.innerHTML = "<h1>Center: <span id='centerstring'>Milky Way</span></h1>";
+centertext.innerHTML += "<h1>Distance: <span id='centerdist'>200</span> Mpc<h1>";
+var centerindex = 0;
+var centerstring = document.getElementById("centerstring");
+var centerdist = document.getElementById("centerdist");
+
+function onDocumentMouseWheel( event ) {
+	var cameraloc = camera.position;
+	centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
+}
+
 var search = document.createElement('div');
 search.style.position = 'absolute';
 search.style.color = '#fff';
@@ -142,6 +170,7 @@ search.innerHTML += '<h3><a href="https://github.com/RiteshSingh/galaxies/blob/m
 search.innerHTML += '<input type="text" placeholder="Galaxy Name" id="srchkey">';
 search.innerHTML += '<button type="button" onclick="searchfunc();" id="srchbtn">Search</button>';
 search.innerHTML += '<span id="srchtxt"></span>';
+var srchtxt = document.getElementById("srchtxt");
 
 document.getElementById("srchkey")
     .addEventListener("keyup", function(event) {
@@ -158,7 +187,6 @@ var rightclickedObject = -3;
 function searchfunc () {
 	var srchkey = document.getElementById("srchkey").value;
 	if (srchkey == "") return;
-	var srchtxt = document.getElementById("srchtxt");
 	var key = srchkey.replace(/[^A-Z0-9]/ig, "").toLowerCase();
 	if (key == 'milkyway') {
 		srchtxt.innerHTML = "Milky Way galaxy centered and colored <span style='color:#f0f;'>magenta</span>. Use mouse scroll or pinch zoom to move to/from Milky Way.";
@@ -166,11 +194,15 @@ function searchfunc () {
 		text.innerHTML += "<h1><a href='https://solarsystem.nasa.gov/resources/285/the-milky-way-galaxy/' target='_blank'>NASA</a></h1>";
 		text.innerHTML += "<h1><a href='https://en.wikipedia.org/wiki/Milky_Way' target='_blank'>Wikipedia</a></h1>";
 		controls.target = dots.geometry.vertices[0];
-		//alert(camera.getWorldPosition().z);
+		
+		centerindex = 0;
+		var cameraloc = camera.position;
+		centerstring.innerHTML = "Milky Way";
+		centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[0]).toFixed(2);
 	}
 	else {
 		var found = false;
-		for (var i = 0; i < 4672; i++) {
+		for (var i = 0; i < 4673; i++) {
 			var name = names[i];
 			if (name.indexOf(',') > -1) {
 				var namearr = name.split(",");
@@ -194,6 +226,11 @@ function searchfunc () {
 					text.innerHTML += "<h1><a href='https://aladin.u-strasbg.fr/AladinLite/?target="+firstname+"' target='_blank'>Aladin</a></h1>";
 					text.innerHTML += "<h1><a href='https://ned.ipac.caltech.edu/cgi-bin/objsearch?extend=no&hconst=73&omegam=0.27&omegav=0.73&corr_z=1&out_csys=Equatorial&out_equinox=J2000.0&obj_sort=RA+or+Longitude&of=pre_text&zv_breaker=30000.0&list_limit=5&img_stamp=YES&objname="+firstname+"' target='_blank'>NED</a></h1>";
 					
+					centerindex = i;
+					var cameraloc = camera.position;
+					centerstring.innerHTML = names[i];
+					centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
+					
 					break;
 				}
 			} 
@@ -211,6 +248,11 @@ function searchfunc () {
 					text.innerHTML += "<h1><a href='http://simbad.u-strasbg.fr/simbad/sim-id?Ident="+firstname+"' target='_blank'>Simbad</a></h1>";
 					text.innerHTML += "<h1><a href='https://aladin.u-strasbg.fr/AladinLite/?target="+firstname+"' target='_blank'>Aladin</a></h1>";
 					text.innerHTML += "<h1><a href='https://ned.ipac.caltech.edu/cgi-bin/objsearch?extend=no&hconst=73&omegam=0.27&omegav=0.73&corr_z=1&out_csys=Equatorial&out_equinox=J2000.0&obj_sort=RA+or+Longitude&of=pre_text&zv_breaker=30000.0&list_limit=5&img_stamp=YES&objname="+firstname+"' target='_blank'>NED</a></h1>";
+					
+					centerindex = i;
+					var cameraloc = camera.position;
+					centerstring.innerHTML = names[i];
+					centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
 					
 					found = true;
 					break;
@@ -286,6 +328,13 @@ function onDocumentMouseClick( event ) {
 		else dots.geometry.colors[idx] = new THREE.Color('#f0f');
 		dots.geometry.colorsNeedUpdate = true;
 		clickedObject = idx;
+		
+		centerindex = idx;
+		var cameraloc = camera.position;
+		centerstring.innerHTML = names[idx];
+		centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
+		
+		srchtxt.innerHTML = "";
 	}
 }
 
