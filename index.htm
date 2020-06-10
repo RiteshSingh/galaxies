@@ -228,7 +228,7 @@ function searchfunc () {
 					
 					centerindex = i;
 					var cameraloc = camera.position;
-					centerstring.innerHTML = names[i];
+					centerstring.innerHTML = name;
 					centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
 					
 					break;
@@ -251,7 +251,7 @@ function searchfunc () {
 					
 					centerindex = i;
 					var cameraloc = camera.position;
-					centerstring.innerHTML = names[i];
+					centerstring.innerHTML = name;
 					centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
 					
 					found = true;
@@ -324,8 +324,15 @@ function onDocumentMouseClick( event ) {
 	if ( intersects.length > 0 ) {
 		controls.target = intersects[0].point;
 		var idx = intersects[0].index;
-		if (idx) dots.geometry.colors[idx] = new THREE.Color('#ff0');
-		else dots.geometry.colors[idx] = new THREE.Color('#f0f');
+		if (idx) {
+			dots.geometry.colors[idx] = new THREE.Color('#ff0');			
+			var name = names[idx];
+			srchtxt.innerHTML = name + " galaxy centered and colored <span style='color:#ff0;'>yellow</span>. Use mouse scroll or pinch zoom to move to/from " + name;
+		}
+		else {
+			dots.geometry.colors[idx] = new THREE.Color('#f0f');
+			srchtxt.innerHTML = "Milky Way galaxy centered and colored <span style='color:#f0f;'>magenta</span>. Use mouse scroll or pinch zoom to move to/from Milky Way.";
+		}
 		dots.geometry.colorsNeedUpdate = true;
 		clickedObject = idx;
 		
@@ -334,7 +341,7 @@ function onDocumentMouseClick( event ) {
 		centerstring.innerHTML = names[idx];
 		centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
 		
-		srchtxt.innerHTML = "";
+		//srchtxt.innerHTML = "";
 	}
 }
 
