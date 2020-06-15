@@ -53,7 +53,7 @@ rawFile.onreadystatechange = function ()
 			for (var i = 0; i < 4672; i++) {
 				var parts = data[i].split(" ");
 
-				dotGeometry.vertices.push(new THREE.Vector3( parts[0], parts[1], parts[2] ));
+				dotGeometry.vertices.push(new THREE.Vector3( parseFloat(parts[0]), parseFloat(parts[1]), parseFloat(parts[2]) ));
 				
 				colors.push(new THREE.Color('#fff'));
 			}
