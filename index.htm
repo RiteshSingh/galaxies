@@ -132,7 +132,7 @@ centertext.style.bottom = 0 + 'px';
 centertext.style.right = 0 + 'px';
 document.body.appendChild(centertext);
 centertext.innerHTML = "<h1>Center: <span id='centerstring'>Milky Way</span></h1>";
-centertext.innerHTML += "<h1>Distance: <span id='centerdist'>200</span> Mpc<h1>";
+centertext.innerHTML += "<h1>Distance: <span id='centerdist'>200</span> Mpc (<span id='centerdistly'>652.31</span> million light-years)<h1>";
 var centerindex = 0;
 var centerstring = document.getElementById("centerstring");
 var centerdist = document.getElementById("centerdist");
@@ -140,6 +140,7 @@ var centerdist = document.getElementById("centerdist");
 function onDocumentMouseWheel( event ) {
 	var cameraloc = camera.position;
 	centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
+	centerdistly.innerHTML = (3.262*cameraloc.distanceTo(dots.geometry.vertices[centerindex])).toFixed(2);
 }
 
 var search = document.createElement('div');
