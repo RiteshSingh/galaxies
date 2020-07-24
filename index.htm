@@ -116,9 +116,8 @@ title.style.color = '#fff';
 title.style.top = 0 + 'px';
 title.style.right = 0 + 'px';
 document.body.appendChild(title);
-title.innerHTML = "<h1>4673 Galaxies < 200 Mpc from Milky Way (each dot is a galaxy!)</h1>"
-title.innerHTML += "<p>Each galaxy is a square of side 32 Kpc (104370 light-years), the diameter of Milky Way. Each galaxy contains 100 billion to 1 trillion stars!</p>";
-title.innerHTML += "<p>You are looking at 4673 galaxies around Milky Way from a distance of 200 Mpc (652 million light-years)! The Milky Way plane is from top to bottom, perpendicular to the screen.</p>";
+title.innerHTML = "<h1>4673 Galaxies < 200 Mpc from Milky Way (each dot is a galaxy)</h1>"
+title.innerHTML += "<b>Each galaxy is a square of side 32 Kpc (104370 light-years), the diameter of Milky Way, containing 100 billion to 1 trillion stars!</b>";
 	
 var text = document.createElement('div');
 text.style.position = 'absolute';
@@ -142,9 +141,11 @@ centertext.style.right = 0 + 'px';
 document.body.appendChild(centertext);
 centertext.innerHTML = "<h1>Center: <span id='centerstring'>Milky Way</span></h1>";
 centertext.innerHTML += "<h1>Distance: <span id='centerdist'>200</span> Mpc (<span id='centerdistly'>652.31</span> million light-years)<h1>";
+
 var centerindex = 0;
 var centerstring = document.getElementById("centerstring");
 var centerdist = document.getElementById("centerdist");
+var startstring = document.getElementById("startstring");
 
 function onDocumentMouseWheel( event ) {
 	var cameraloc = camera.position;
@@ -162,7 +163,7 @@ search.innerHTML = '<h1>Galaxy Search</h1>';
 search.innerHTML += '<input type="text" placeholder="Galaxy Name" id="srchkey">';
 search.innerHTML += '<button type="button" onclick="searchfunc();" id="srchbtn">Search</button>';
 search.innerHTML += '<span id="srchtxt"></span>';
-search.innerHTML += '<h2><a href="https://github.com/RiteshSingh/galaxies/blob/master/galaxyname.txt" target="_blank">List of all 4673 galaxies</a></h2>';
+search.innerHTML += '<h3><a href="https://github.com/RiteshSingh/galaxies/blob/master/galaxyname.txt" target="_blank">List of all 4673 galaxies</a></h3>';
 
 var srchtxt = document.getElementById("srchtxt");
 
@@ -334,8 +335,7 @@ function onDocumentMouseClick( event ) {
 		var cameraloc = camera.position;
 		centerstring.innerHTML = names[idx];
 		centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
-		
-		//srchtxt.innerHTML = "";
+
 	}
 }
 
