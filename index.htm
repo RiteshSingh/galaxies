@@ -109,6 +109,14 @@ function onWindowResize() {
 	renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+	
+var title = document.createElement('div');
+title.style.position = 'absolute';
+title.style.color = '#fff';
+title.style.top = 0 + 'px';
+title.style.right = 0 + 'px';
+document.body.appendChild(title);
+text.innerHTML = "<h1>4673 Galaxies in < 200 Mpc Universe (each dot is a galaxy!)</h1>"
 
 var text = document.createElement('div');
 text.style.position = 'absolute';
