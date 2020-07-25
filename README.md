@@ -12,4 +12,4 @@ Point at a colored galaxy (except last colored): <b>Turn it back to white</b><br
 Milky Way: <b>Always <span style='color:#f0f;'>magenta</span></b></p>
 
 ### [Link to the Simulation](https://riteshsingh.github.io/galaxies/)
-### [Link to the Paper](https://docs.google.com/document/d/1kfADRYLTP8uvYLBO4Ns8v67INUrGJBcTXrZbaE9wX8E/edit?usp=sharing)
+### [Link to the Paper](https://academic.oup.com/astrogeo/article-abstract/61/4/4.42/5873800)
