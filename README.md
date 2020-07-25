@@ -9,8 +9,8 @@ Mouse scroll or Pinch zoom: <b>Move to/from centered galaxy (default Milky Way)<
 Left click on a galaxy: <b>Center and color it <span style='color:#ff0;'>yellow</span></b><br>
 Right click on a galaxy: <b>Select and color it <span style='color:#0f0;'>green</span></b><br>
 Point at a colored galaxy (except last colored): <b>Turn it back to white</b><br>
-Milky Way: <b>Always <span style='color:#f0f;'>magenta</span></b>
-Galaxy Search by Name / Catalog Number: <b>Bottom Left</b>
+Milky Way: <b>Always <span style='color:#f0f;'>magenta</span></b><br>
+Galaxy Search by Name / Catalog Number: <b>Bottom Left</b><br>
 Distance Meter: <b>Bottom Right</b></p>
 
 ### [Link to the Simulation](https://riteshsingh.github.io/galaxies/)
