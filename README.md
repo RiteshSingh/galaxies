@@ -1,6 +1,6 @@
 ## Web Simulation of 3D distribution of galaxies in the <200 Mpc Universe
 
-<p>In this simulation, you are looking at 4673 galaxies around Milky Way from a distance of 200 Mpc (652 million light-years)! The Milky Way plane is from top to bottom, perpendicular to the screen.</p>
+<p>In this simulation, you are looking at 4673 galaxies around Milky Way initially from a distance of 200 Mpc (652 million light-years)! The Milky Way plane is initially from top to bottom, perpendicular to the screen.</p>
 <p>Each galaxy is a square dot of side 32 Kpc (104370 light-years), the diameter of Milky Way. Each galaxy contains 100 billion to 1 trillion stars!</p>
 
 ### Tools
