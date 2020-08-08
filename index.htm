@@ -166,12 +166,14 @@ centertext.innerHTML += "<h1>Distance: <span id='centerdist'>200</span> Mpc (<sp
 var centerindex = 0;
 var centerstring = document.getElementById("centerstring");
 var centerdist = document.getElementById("centerdist");
+var centerdistval = 200;
 var startstring = document.getElementById("startstring");
 
 function onDocumentMouseWheel( event ) {
 	var cameraloc = camera.position;
-	centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
-	centerdistly.innerHTML = (3.262*cameraloc.distanceTo(dots.geometry.vertices[centerindex])).toFixed(2);
+	centerdistval = cameraloc.distanceTo(dots.geometry.vertices[centerindex]);
+	centerdist.innerHTML = centerdistval.toFixed(2);
+	centerdistly.innerHTML = (3.262*centerdistval).toFixed(2);
 }
 
 var search = document.createElement('div');
@@ -214,7 +216,9 @@ function searchfunc () {
 		centerindex = 0;
 		var cameraloc = camera.position;
 		centerstring.innerHTML = "Milky Way";
-		centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[0]).toFixed(2);
+		centerdistval = cameraloc.distanceTo(dots.geometry.vertices[centerindex]);
+		centerdist.innerHTML = centerdistval.toFixed(2);
+		centerdistly.innerHTML = (3.262*centerdistval).toFixed(2);
 	}
 	else {
 		var found = false;
@@ -245,7 +249,9 @@ function searchfunc () {
 					centerindex = i;
 					var cameraloc = camera.position;
 					centerstring.innerHTML = name;
-					centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
+					centerdistval = cameraloc.distanceTo(dots.geometry.vertices[centerindex]);
+					centerdist.innerHTML = centerdistval.toFixed(2);
+					centerdistly.innerHTML = (3.262*centerdistval).toFixed(2);
 					
 					break;
 				}
@@ -268,7 +274,9 @@ function searchfunc () {
 					centerindex = i;
 					var cameraloc = camera.position;
 					centerstring.innerHTML = name;
-					centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
+					centerdistval = cameraloc.distanceTo(dots.geometry.vertices[centerindex]);
+					centerdist.innerHTML = centerdistval.toFixed(2);
+					centerdistly.innerHTML = (3.262*centerdistval).toFixed(2);
 					
 					found = true;
 					break;
@@ -355,7 +363,9 @@ function onDocumentMouseClick( event ) {
 		centerindex = idx;
 		var cameraloc = camera.position;
 		centerstring.innerHTML = names[idx];
-		centerdist.innerHTML = cameraloc.distanceTo(dots.geometry.vertices[centerindex]).toFixed(2);
+		centerdistval = cameraloc.distanceTo(dots.geometry.vertices[centerindex]);
+		centerdist.innerHTML = centerdistval.toFixed(2);
+		centerdistly.innerHTML = (3.262*centerdistval).toFixed(2);
 
 	}
 }
