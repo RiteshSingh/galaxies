@@ -1,0 +1,103 @@
+<html>
+
+<head>
+	<title>Web Simulation of 3D distribution of galaxies &lt; 200 Mpc from Milky Way</title>
+
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+
+	<script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-24341067-2"></script>
+
+	<script>
+
+		window.dataLayer = window.dataLayer || [];
+		function gtag() { dataLayer.push(arguments); }
+		gtag('js', new Date());
+		gtag('config', 'UA-24341067-2');
+
+	</script>
+
+	<meta charset="UTF-8">
+	<style>
+		* {
+			margin: 0;
+			font-family: 'Segoe UI', sans-serif;
+		}
+
+		h1,
+		h2,
+		h3 {
+			margin-block-start: 0.5em;
+			margin-block-end: 0.5em;
+			margin-inline-start: 0px;
+			margin-inline-end: 0px;
+		}
+
+		a {
+			color: #fff;
+		}
+
+		div {
+			padding-block-end: 0.5em;
+			padding-inline-start: 1em;
+			padding-inline-end: 1em;
+			background-color: rgba(30, 30, 30, 0.3)
+		}
+	</style>
+	<script src="three/three.min.js"></script>
+	<script src="three/TrackballControls.js"></script>
+
+	<link rel="stylesheet" href="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.css" />
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.1.min.js" charset="utf-8"></script>
+
+</head>
+
+<body>
+	<div style="position: absolute; color: rgb(255, 255, 255); top: 0px; right: 0px;">
+		<h2>4673 Galaxies &lt; 200 Mpc from Milky Way</h2><b>Each galaxy appears as a square of
+			side 32 kiloparsecs,<br> the diameter of Milky Way, containing 100-400 billion stars!</b>
+		<h3>Tools</h3>
+		Point at a galaxy: <b>Name, CDS, Simbad, Aladin, NED</b><br>
+		Mouse scroll or Pinch zoom: <b>Move to/from centered galaxy</b><br>
+		Left click and drag: <b>Rotate</b><br>
+		Right click and drag: <b>Pan</b><br>
+		Left click on a galaxy: <b>Center the galaxy (colored <span style="color:#ff0;">yellow</span>)</b><br>
+		Right click on a galaxy: <b>Select and color it <span style="color:#0f0;">green</span></b><br>
+		Point at a colored galaxy (except last colored): <b>Turn it back to white</b><br>
+		Milky Way: <b>Always <span style="color:#f0f;">magenta</span></b>
+	</div>
+	<div style="position: absolute; color: rgb(255, 255, 255); bottom: 10px; left: 0px;">
+		<h1>Galaxy Search</h1><input type="text" placeholder="Name / Catalog Number" id="srchkey"><button type="button"
+			onclick="searchfunc();" id="srchbtn">Search</button><br>
+
+		<br>
+		<h3><a href="https://github.com/RiteshSingh/galaxies/blob/master/galaxyname.txt" target="_blank">List of all
+				4673 galaxies</a></h3>
+	</div>
+	<div style="position: absolute; color: rgb(255, 255, 255); top: 0px; left: 0px;">
+		<h1 id="galaxyName2">Milky way</h1>
+		<p id="galaxyNames" style="margin-bottom: 1em;">Milky way</p>
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/ESO-VLT-Laser-phot-33a-07.jpg/1280px-ESO-VLT-Laser-phot-33a-07.jpg"
+			width="200" id="image" style="display:block;" />
+		<div id="aladin-lite-div" style="width:300px;height:300px; display:none"></div><br>
+
+		<a href="" target="_blank" style="display:none;" id="cds">CDS</a>
+		<a href="" target="_blank" style="display:none;" id="simbad">Simbad</a>
+		<a href="" target="_blank" style="display:none;" id="aladin">Aladin</a>
+		<a href="" target="_blank" style="display:none;" id="ned">NED</a>
+	</div>
+	<div style="position: absolute; color: rgb(255, 255, 255); bottom: 0px; right: 0px;">
+		<p><span id="galaxyName" style="float: left;">Milky way</span> centered and colored <b><span id="galaxyColor"
+					style="color: #f0f">magenta</span></b></p>
+		<h3>Distance: <span id="centerdist">200</span> Mpc (<span id="centerdistly">652.31</span> million light-years)
+		</h3>
+	</div>
+
+
+	<script src="index.js"></script>
+	<script type="text/javascript" src="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.js"
+		charset="utf-8"></script>
+
+</body>
+
+</html>
