@@ -50,12 +50,14 @@
 	<link rel="stylesheet" href="https://aladin.u-strasbg.fr/AladinLite/api/v2/latest/aladin.min.css" />
 	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.1.min.js" charset="utf-8"></script>
 
+	<script type='text/javascript' src='three/tween.js'></script>
+
 </head>
 
 <body>
 	<div style="position: absolute; color: rgb(255, 255, 255); top: 0px; right: 0px;">
 		<h2>4673 Galaxies &lt; 200 Mpc from Milky Way</h2><b>Each galaxy appears as a square of
-			side 32 kiloparsecs,<br> the diameter of Milky Way, containing 100-400 billion stars!</b>
+			side 32 kiloparsecs,<br> the diameter of Milky Way.</b>
 		<h3>Tools</h3>
 		Point at a galaxy: <b>Name, CDS, Simbad, Aladin, NED</b><br>
 		Mouse scroll or Pinch zoom: <b>Move to/from centered galaxy</b><br>
@@ -87,7 +89,7 @@
 		<a href="" target="_blank" style="display:none;" id="ned">NED</a>
 	</div>
 	<div style="position: absolute; color: rgb(255, 255, 255); bottom: 0px; right: 0px;">
-		<p><span id="galaxyName" style="float: left;">Milky way</span> centered and colored <b><span id="galaxyColor"
+		<p><span id="galaxyName" style="float: left;">Milky way</span> centered and colored <b><span id="galaxyColor"
 					style="color: #f0f">magenta</span></b></p>
 		<h3>Distance: <span id="centerdist">200</span> Mpc (<span id="centerdistly">652.31</span> million light-years)
 		</h3>

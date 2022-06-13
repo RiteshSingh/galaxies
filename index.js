@@ -74,7 +74,9 @@ let render = function () {
     controls.update();
     // Render the scene
     renderer.render(scene, camera);
+    TWEEN.update();
 };
+
 render();
 
 window.addEventListener('resize', onWindowResize, false);
@@ -172,7 +174,6 @@ function onDocumentMouseMove(event) {
 function onDocumentMouseClick(event) {
     let intersects = getIntersects(event.layerX, event.layerY);
     if (intersects.length > 0) {
-        controls.target = intersects[0].point;
         let idx = intersects[0].index;
         if (centerindex !== idx)
             dots.geometry.colors[centerindex] = centerindex === 0 ? new THREE.Color('#f0f') : new THREE.Color('#fff');
@@ -239,10 +240,9 @@ function updateGalaxyPage(i) {
             if (aladinDiv.style.display === 'none') aladinDiv.style.display = 'block';
             if (image.style.display === 'block') image.style.display = 'none';
             A.aladin('#aladin-lite-div', { target: '266.4 -29', fov: 60, showLayersControl: false, showGotoControl: false });
-        } else {
+        } else
             image.src =
                 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/ESO-VLT-Laser-phot-33a-07.jpg/1280px-ESO-VLT-Laser-phot-33a-07.jpg';
-        }
 
         if (cdsLink.style.display === 'block') cdsLink.style.display = 'none';
         if (simbad.style.display === 'block') simbad.style.display = 'none';
@@ -250,7 +250,7 @@ function updateGalaxyPage(i) {
         if (ned.style.display === 'block') ned.style.display = 'none';
     } else {
         dots.geometry.colors[i] = new THREE.Color('#ff0');
-        console.log(dots.geometry.colors[i]);
+
         galaxyColor.style.color = '#ff0';
         galaxyColor.innerText = 'yellow';
 
@@ -284,7 +284,20 @@ function updateGalaxyPage(i) {
             image.src = `http://alasky.u-strasbg.fr/cgi/simbad-thumbnails/get-thumbnail.py?name=${firstname}`;
         }
     }
-    controls.target = dots.geometry.vertices[i];
+
+    let from = controls.target;
+    let to = dots.geometry.vertices[i];
+
+    TWEEN.removeAll();
+    let tween = new TWEEN.Tween(from)
+        .to(to, 750)
+        .easing(TWEEN.Easing.Linear.None)
+        .onUpdate(function (p) {
+            camera.lookAt(p);
+        });
+
+    tween.start();
+
     dots.geometry.colorsNeedUpdate = true;
     clickedObject = i;
 }
