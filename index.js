@@ -215,6 +215,7 @@ function getIntersects(x, y) {
 let galaxyName = document.getElementById('galaxyName');
 let galaxyName2 = document.getElementById('galaxyName2');
 let galaxyNames = document.getElementById('galaxyNames');
+let galaxyDist = document.getElementById('galaxyDist');
 
 let galaxyColor = document.getElementById('galaxyColor');
 let image = document.getElementById('image');
@@ -287,6 +288,9 @@ function updateGalaxyPage(i) {
 
     let from = controls.target;
     let to = dots.geometry.vertices[i];
+
+    let galaxyDistance = to.length();
+    galaxyDist.innerText = `${galaxyDistance.toFixed(1)} Mpc (${(3.262 * galaxyDistance).toFixed(1)} Mly)`;
 
     TWEEN.removeAll();
     let tween = new TWEEN.Tween(from)
