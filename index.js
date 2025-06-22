@@ -58,7 +58,7 @@ rawFile.send(null);
 
 dotGeometry.colors = colors;
 
-let size = 0.032;
+let size = 0.0268;
 let dotMaterial = new THREE.PointsMaterial({
     size: size,
     vertexColors: THREE.VertexColors
@@ -290,7 +290,7 @@ function updateGalaxyPage(i) {
     let to = dots.geometry.vertices[i];
 
     let galaxyDistance = to.length();
-    galaxyDist.innerText = `${galaxyDistance.toFixed(1)} Mpc (${(3.262 * galaxyDistance).toFixed(1)} Mly)`;
+    galaxyDist.innerText = `Distance from Earth: ${galaxyDistance.toFixed(1)} Mpc (${(3.262 * galaxyDistance).toFixed(1)} Mly)`;
 
     TWEEN.removeAll();
     let tween = new TWEEN.Tween(from)
