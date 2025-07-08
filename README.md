@@ -12,4 +12,4 @@ Bottom Left: <b>Galaxy Search by Name / Catalog Number</b><br>
 Bottom Right: <b>Distance from you</b></p>
 
 ### [Link to the Simulation](https://riteshsingh.github.io/galaxies/)
-### [Link to the Paper]([https://academic.oup.com/astrogeo/article-abstract/61/4/4.42/5873800](https://academic.oup.com/astrogeo/article/61/4/4.42/5873800))
+### [Link to the Paper](https://academic.oup.com/astrogeo/article/61/4/4.42/5873800)
